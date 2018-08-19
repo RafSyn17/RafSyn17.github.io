@@ -41,6 +41,74 @@
                 context.arc(100, 300, 40, 0, Math.PI);
                 context.stroke();
 
+                context.fillText("some text...", 330, 40);
+
+                context.font = "10pt Arial";
+                context.fillText("now with 10pt Arial", 330, 60);
+
+                context.font = "16pt Arial";
+                context.strokeText("and now stroked 16pt Arial", 330, 80);
+
+                context.fillStyle = "red";
+                context.fillRect(310, 160, 100, 50);
+
+                context.strokeStyle = "green";
+                context.strokeRect(310, 240, 100, 50);
+
+                context.fillStyle = "rgb(255, 128, 0)";
+                context.fillRect(420, 160, 100, 50);
+
+                context.fillStyle = "rgba(0, 255, 0, 0.6)";
+                context.fillRect( 450, 180, 100, 50);
+
+                var fireImage = new Image();
+                fireImage.src = "fire.jpg";
+                fireImage.onload = function() {
+                    var pattern = context.createPattern(fireImage, "repeat");
+                    context.fillStyle = pattern;
+                    context.fillRect(420, 240, 130, 50);
+                    context.fillRect(420, 300, 130, 50);
+                }
+
+                var image = new Image();
+                image.src = "spaceship.png";
+                image.onload = function() {
+                    context.drawImage(image, 0, 350);
+                    context.drawImage(image, 0, 400, 100, 25);
+                    context.drawImage(image, 0, 0, 60, 50, 0, 420, 60, 50);
+                    
+                    context.save();
+                    context.translate(250, 370);
+                    context.rotate(Math.PI / 3);
+                    context.drawImage(image, 0, 0, 60, 50, -30, -25, 60, 50);
+                    // context.rotate(-Math.PI / 3);
+                    // context.translate(-240, -370);
+                    context.restore();
+                    // context.fillStyle = "red";
+                    // context.fillRect(0, 0, 10, 10);
+
+                    // function moveRight(x){
+                    //     context.clearRect(x, 420, 60, 50 );
+                    //     if( x === 580 ) x = 0;
+                    //     context.drawImage(image, 130, 0, 60, 50, x+1, 420, 60, 50 );
+                    //     setTimeout(function(){moveRight(x+1)},1);
+                    // }
+                    // moveRight(0);
+
+                    var start = null;
+                    function updateShip(timestamp){
+                        if(!start) start = timestamp;
+                        var x = (((timestamp - start) * 60) / 1000) % 580;
+                        context.clearRect(0, 420, 640, 50);
+                        context.drawImage(image, 130, 0, 60, 50, x, 420, 60, 50 );
+                        requestAnimationFrame(updateShip);
+                    }
+                    requestAnimationFrame(updateShip);
+
+                }
+
+                var myloop = setInterval( function() { console.log("huhu"); }, 1000 );
+                setTimeout(function(){ clearInterval(myloop); }, 5*1000);
             }
         </script>
     </head>
@@ -48,5 +116,8 @@
         <canvas width="640" height="480" id="testcanvas" style="border: 1px solid black">
             Your browser does not support HTML5 Canvas. Please shift to a new browser.
         </canvas>
+        <!-- <audio src="GoksuMarshes.mp3" controls autoplay>
+            Your browser does not support HTML5 Audio. Please shift to a newer browser.
+        </audio> -->
     </body>
 </html>
