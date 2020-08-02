@@ -91,4 +91,3 @@ function handleMembersFile(files) {
     }
     let resultDiv = document.getElementById('resultTable');
     resultDiv.appendChild(table);
-  });
