@@ -66,3 +66,29 @@ function handleMembersFile(files) {
     resultDiv.appendChild(table);
   });
 }
+
+  var jsTable = [];
+    console.log(x3m_members);
+    for (let member of x3m_members) {
+      var row = [];
+      row.push(member.name);
+      // var toonIds = ["REYJEDITRAINING", "FINN", "C3POLEGENDARY", "R2D2_LEGENDARY", "BB8"];
+      var toonIds = ['EMBO', 'BOBAFETT', 'BOSSK', 'GREEDO', 'CADBANE'];
+      addToons(row, member, toonIds);
+      jsTable.push(row);
+    }
+    console.log(jsTable);
+
+    ///////////////////////////////////////////////////
+
+    var table = document.createElement('table');
+    for (let jsRow of jsTable) {
+      let tr = table.insertRow(-1);
+      for (let val of jsRow) {
+        let cell = tr.insertCell(-1);
+        cell.innerHTML = val;
+      }
+    }
+    let resultDiv = document.getElementById('resultTable');
+    resultDiv.appendChild(table);
+  });
